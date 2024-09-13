@@ -1,55 +1,34 @@
 import { Link } from "react-router-dom"
+import { Fragment } from "react/jsx-runtime"
 
-interface VocabularyDataType {
-  word: string
-  meaning: string
-  naverLink?: string
-}
+import { VocabularyDataT } from "../../types"
+import { VocabularyDataArr } from "../../data/Vocabulary"
 
-const VocabularyDataList: VocabularyDataType[] = [
-  {
-    word: 'apple',
-    meaning: '사과'
-  },
-  {
-    word: 'banana',
-    meaning: '바나나'
-  },
-  {
-    word: 'home',
-    meaning: '집',
-    naverLink: 'l'
-  },
-]
+import { CommonTable1, CommonTable1_tr, CommonTable1_td } from "../common/CommonTable1"
 
 
 const VocabularyList = () => {
-  const list = VocabularyDataList.map((data: VocabularyDataType, index: number) => {
-    return (
-      <tr key={index}>
-        <td>{data.word}</td>
-        <td>{data.meaning}</td>
-        <td>{data.naverLink ? <Link to={'/generateTest'}>data.naverLink</Link> : '-'}</td>
-      </tr>
-    )
-  })
 
   return (
     <>
       <h1>list</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>단어</th>
-            <th>뜻</th>
-            <th>네이버 단어사전</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list}
-        </tbody>
-      </table>
-
+      <CommonTable1 className={`m-auto`} headArr={['word', 'meaning', 'dictionary']}>
+        {
+          VocabularyDataArr.map((data: VocabularyDataT) => {
+            return (
+              <Fragment key={data.id}>
+                <CommonTable1_tr>
+                  <CommonTable1_td>{data.word}</CommonTable1_td>
+                  <CommonTable1_td align="left">{data.meaning}</CommonTable1_td>
+                  <CommonTable1_td align="right" >
+                    {data.naverLink ? <Link to={data.naverLink} target="_blank" className={`text-blue-500 line`}>{data.word}</Link> : ''}
+                    </CommonTable1_td>
+                </CommonTable1_tr>
+              </Fragment>
+            )
+          })
+        }
+      </CommonTable1>
     </>
   )
 }
