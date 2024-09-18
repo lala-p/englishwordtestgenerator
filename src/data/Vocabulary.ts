@@ -1,6 +1,6 @@
 import { VocabularyDataT } from "../types";
 
-export const VocabularyDataArr: VocabularyDataT[] = [
+export const vocabularyDataArr: VocabularyDataT[] = [
   { 
     id: 1, 
     word: 'apple', 
